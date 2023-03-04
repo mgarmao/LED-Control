@@ -12,6 +12,7 @@ int blue = 7;
 int red = 11;
 
 void setup() {
+  Serial.begin(9600);
   pinMode(green,OUTPUT);
   pinMode(blue,OUTPUT);
   pinMode(red,OUTPUT);
@@ -19,10 +20,20 @@ void setup() {
 }
 
 void loop() {
-  purple();
-  delay(1000);
-  yellow();
-  delay(1000);
+  if (Serial.available() > 0) { // If there's data available on the serial port
+    int data = Serial.read(); // Read the incoming data
+    turnRed();
+    if(data==1){
+      purple();
+    }
+    if(data==2){
+      yellow();
+    }
+  }
+  else{
+    white();
+  }
+  delay(100);
 }
 
 void purple(){
