@@ -22,16 +22,23 @@ void setup() {
 void loop() {
   if (Serial.available() > 0) { // If there's data available on the serial port
     int data = Serial.read(); // Read the incoming data
-    turnRed();
+    Serial.println(data);
     if(data==1){
+      yellow();
+    }
+    else if(data==2){
       purple();
     }
-    if(data==2){
-      yellow();
+    else{
+      turnRed();
+    }
+    unsigned long startTimer = millis();
+    while(millis()-startTimer<=5000&&!(Serial.available() > 0)){
+      
     }
   }
   else{
-    white();
+    off();
   }
   delay(100);
 }
